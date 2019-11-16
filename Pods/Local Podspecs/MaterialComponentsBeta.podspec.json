@@ -1,0 +1,187 @@
+{
+  "name": "MaterialComponentsBeta",
+  "version": "94.2.0",
+  "authors": "The Material Components authors.",
+  "summary": "A collection of stand-alone alpha UI libraries that are not yet guaranteed to be ready for general production use. Use with caution.",
+  "homepage": "https://github.com/material-components/material-components-ios",
+  "license": "Apache 2.0",
+  "source": {
+    "git": "https://github.com/material-components/material-components-ios.git",
+    "tag": "v94.2.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "requires_arc": true,
+  "subspecs": [
+    {
+      "name": "ActionSheet+ActionSheetThemer",
+      "platforms": {
+        "ios": "9.0"
+      },
+      "public_header_files": "components/ActionSheet/src/ActionSheetThemer/*.h",
+      "source_files": [
+        "components/ActionSheet/src/ActionSheetThemer/*.{h,m}",
+        "components/ActionSheet/src/ActionSheetThemer/private/*.{h,m}"
+      ],
+      "dependencies": {
+        "MaterialComponents/ActionSheet": [
+
+        ],
+        "MaterialComponentsBeta/ActionSheet+ColorThemer": [
+
+        ],
+        "MaterialComponentsBeta/ActionSheet+TypographyThemer": [
+
+        ]
+      },
+      "testspecs": [
+        {
+          "name": "UnitTests",
+          "test_type": "unit",
+          "source_files": [
+            "components/ActionSheet/tests/unit/ActionSheetThemer/*.{h,m,swift}",
+            "components/ActionSheet/tests/unit/ActionSheetThemer/supplemental/*.{h,m,swift}",
+            "components/ActionSheet/tests/unit/MDCActionSheetTestHelper.*"
+          ],
+          "resources": "components/ActionSheet/tests/unit/ActionSheetThemer/resources/*"
+        }
+      ]
+    },
+    {
+      "name": "ActionSheet+ColorThemer",
+      "platforms": {
+        "ios": "9.0"
+      },
+      "public_header_files": "components/ActionSheet/src/ColorThemer/*.h",
+      "source_files": [
+        "components/ActionSheet/src/ColorThemer/*.{h,m}",
+        "components/ActionSheet/src/ColorThemer/private/*.{h,m}"
+      ],
+      "dependencies": {
+        "MaterialComponents/ActionSheet": [
+
+        ],
+        "MaterialComponents/schemes/Color": [
+
+        ]
+      },
+      "testspecs": [
+        {
+          "name": "UnitTests",
+          "test_type": "unit",
+          "source_files": [
+            "components/ActionSheet/tests/unit/ColorThemer/*.{h,m,swift}",
+            "components/ActionSheet/tests/unit/ColorThemer/supplemental/*.{h,m,swift}"
+          ],
+          "resources": "components/ActionSheet/tests/unit/ColorThemer/resources/*"
+        }
+      ]
+    },
+    {
+      "name": "ActionSheet+TypographyThemer",
+      "platforms": {
+        "ios": "9.0"
+      },
+      "public_header_files": "components/ActionSheet/src/TypographyThemer/*.h",
+      "source_files": [
+        "components/ActionSheet/src/TypographyThemer/*.{h,m}",
+        "components/ActionSheet/src/TypographyThemer/private/*.{h,m}"
+      ],
+      "dependencies": {
+        "MaterialComponents/ActionSheet": [
+
+        ],
+        "MaterialComponents/schemes/Typography": [
+
+        ]
+      }
+    },
+    {
+      "name": "BottomNavigation",
+      "platforms": {
+        "ios": "9.0"
+      },
+      "public_header_files": [
+        "components/BottomNavigation/src/MDCBottomNavigationBarController.h",
+        "components/BottomNavigation/src/MaterialBottomNavigationBeta.h"
+      ],
+      "source_files": [
+        "components/BottomNavigation/src/MDCBottomNavigationBarController.*",
+        "components/BottomNavigation/src/MaterialBottomNavigationBeta.h"
+      ],
+      "dependencies": {
+        "MaterialComponents/BottomNavigation": [
+
+        ]
+      },
+      "testspecs": [
+        {
+          "name": "UnitTests",
+          "test_type": "unit",
+          "source_files": [
+            "components/BottomNavigation/tests/unit/MDCBottomNavigationBarControllerTests.m"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tabs+TabBarView",
+      "platforms": {
+        "ios": "9.0"
+      },
+      "public_header_files": "components/Tabs/src/TabBarView/*.h",
+      "source_files": [
+        "components/Tabs/src/TabBarView/*.{h,m}",
+        "components/Tabs/src/TabBarView/private/*.{h,m}"
+      ],
+      "dependencies": {
+        "MaterialComponents/AnimationTiming": [
+
+        ],
+        "MaterialComponents/Ripple": [
+
+        ],
+        "MaterialComponents/private/Math": [
+
+        ],
+        "MDFInternationalization": [
+
+        ]
+      },
+      "testspecs": [
+        {
+          "name": "UnitTests",
+          "test_type": "unit",
+          "source_files": [
+            "components/Tabs/tests/unit/TabBarView/*.{h,m,swift}"
+          ],
+          "dependencies": {
+            "MaterialComponents/AppBar": [
+
+            ],
+            "MaterialComponents/HeaderStackView": [
+
+            ],
+            "MaterialComponents/Typography": [
+
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "private",
+      "subspecs": [
+        {
+          "name": "Beta",
+          "platforms": {
+            "ios": "9.0"
+          },
+          "public_header_files": "components/private/Beta/src/*.h",
+          "source_files": "components/private/Beta/src/*.{h,m}"
+        }
+      ]
+    }
+  ]
+}
