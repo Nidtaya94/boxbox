@@ -11,10 +11,11 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    let barButtonItem = UIBarButtonItem.appearance()
+    barButtonItem.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -300, vertical: 0.0),
+                                                       for: .default)
     return true
   }
 
