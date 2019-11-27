@@ -9,6 +9,8 @@
 import UIKit
 import WebKit
 
+import MaterialComponents.MaterialIcons
+
 extension UIViewController {
   
   func scrollToTop() {
@@ -42,6 +44,13 @@ extension UIViewController {
       }
     }
     return true
+  }
+  
+  func setMDCBackBarButtonItemImage() {
+    let image = MDCIcons.imageFor_ic_arrow_back()?.withRenderingMode(.alwaysTemplate)
+    navigationController?.navigationBar.backIndicatorImage = image
+    navigationController?.navigationBar.backIndicatorTransitionMaskImage = image
+//    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
   }
   
 }

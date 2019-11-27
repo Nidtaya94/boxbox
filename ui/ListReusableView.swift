@@ -12,22 +12,23 @@ import MaterialComponents.MaterialMath
 import MaterialComponents.MaterialInk
 
 protocol ListReusableViewDelegate: class {
-  func collectionReusableView(_ collectionReusableView: UICollectionReusableView, didAction action: String)
+  func listReusableView(_ collectionReusableView: UICollectionReusableView, didAction action: String)
 }
 
-struct ListReusableViewDisplayed {
+struct ListReusableViewModel {
   var title: String = ""
   var detail: String = ""
   var trailingButtonTitle: String? = ""
   var trailingButtonImg: UIImage? = nil
 }
 
-extension CollectionReusableView
+extension ListReusableView:
+  ViewApplicable
 {
   
 }
 
-class CollectionReusableView: UICollectionReusableView {
+class ListReusableView: UICollectionReusableView {
   
   struct Constant {
     static let lowHeight: CGFloat = 30
@@ -40,12 +41,12 @@ class CollectionReusableView: UICollectionReusableView {
   }
   
   var contentStackView: UIStackView = {
-    var StackView = UIStackView()
-    StackView.axis = .horizontal
-    StackView.alignment = .fill
-    StackView.distribution = .fill
-    StackView.spacing = UIConstant.mediumSpace
-    return StackView
+    var stackView = UIStackView()
+    stackView.axis = .horizontal
+    stackView.alignment = .fill
+    stackView.distribution = .fill
+    stackView.spacing = UIConstant.mediumSpace
+    return stackView
   }()
   var trailingButton: UIButton = {
     let Button = UIButton(type: .custom)
@@ -61,21 +62,18 @@ class CollectionReusableView: UICollectionReusableView {
   }()
   var titleLabel: UILabel = {
     var label = UILabel()
-    
     return label
   }()
-  var detailLabel: UILabel = {
+  var subtitleLabel: UILabel = {
     var label = UILabel()
     return label
   }()
   var topBorderView: UIView = {
     let view = UIView()
-    view.isHidden = true
     return view
   }()
   var bottomBorderView: UIView = {
     let view = UIView()
-    view.isHidden = true
     return view
   }()
   
@@ -83,36 +81,13 @@ class CollectionReusableView: UICollectionReusableView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    trailingButton.addTarget(self, action: #selector(buttonTouchUpInside), for: .touchUpInside)
-    addSubview(contentStackView)
+    
+    addSubviews([contentStackView])
     contentStackView.addArrangedSubviews([textStackView, trailingButton])
-    textStackView.addArrangedSubviews([titleLabel, detailLabel])
-    addSubview(topBorderView)
-    addSubview(bottomBorderView)
-    
-    contentStackView.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(UIConstant.lowSpace)
-      $0.right.equalToSuperview().offset(-UIConstant.mediumSpace)
-      $0.bottom.equalToSuperview().offset(-UIConstant.lowSpace)
-      $0.left.equalToSuperview().offset(UIConstant.mediumSpace)
-    }
-    
-    topBorderView.snp.makeConstraints {
-      $0.top.equalToSuperview()
-      $0.right.equalToSuperview()
-      $0.left.equalToSuperview()
-      $0.height.equalTo(1)
-    }
-    
-    bottomBorderView.snp.makeConstraints {
-      $0.right.equalToSuperview()
-      $0.bottom.equalToSuperview()
-      $0.left.equalToSuperview()
-      $0.height.equalTo(1)
-    }
-    
-    applyProperties()
-    applyTheme()
+    textStackView.addArrangedSubviews([titleLabel, subtitleLabel])
+    addSubviews([topBorderView])
+    addSubviews([bottomBorderView])
+    applyView()
     setNeedsLayout()
     layoutIfNeeded()
   }
@@ -123,33 +98,52 @@ class CollectionReusableView: UICollectionReusableView {
   
   override func prepareForReuse() {
     super.prepareForReuse()
-    titleLabel.text = nil
-    trailingButton.setTitle(nil, for: .normal)
-//    topBorderV.isHidden = true
-//    bottomBorderV.isHidden = true
-    applyProperties()
-    applyTheme()
+    applyView()
     setNeedsLayout()
     layoutIfNeeded()
   }
   
-  @objc func buttonTouchUpInside(_ sender: UIButton) {
-    delegate?.collectionReusableView(self, didAction: Action.trailingButton.rawValue)
+  func applyAutoLayout() {
+    contentStackView.snp.makeConstraints {
+      $0.top.equalToSuperview().offset(UIConstant.lowSpace)
+      $0.right.equalToSuperview().offset(-UIConstant.mediumSpace)
+      $0.bottom.equalToSuperview().offset(-UIConstant.lowSpace)
+      $0.left.equalToSuperview().offset(UIConstant.mediumSpace)
+    }
+    topBorderView.snp.makeConstraints {
+      $0.top.equalToSuperview()
+      $0.right.equalToSuperview()
+      $0.left.equalToSuperview()
+      $0.height.equalTo(UIConstant.borderHeight)
+    }
+    bottomBorderView.snp.makeConstraints {
+      $0.right.equalToSuperview()
+      $0.bottom.equalToSuperview()
+      $0.left.equalToSuperview()
+      $0.height.equalTo(UIConstant.borderHeight)
+    }
   }
   
-  func applyProperties() {
+  func applyProperty() {
+    trailingButton.addTarget(self, action: #selector(buttonTouchUpInside), for: .touchUpInside)
     titleLabel.numberOfLines = 0
-    detailLabel.numberOfLines = 0
-    detailLabel.isHidden = true
+    subtitleLabel.numberOfLines = 0
+    subtitleLabel.isHidden = true
     trailingButton.isHidden = true
+    topBorderView.isHidden = true
+    bottomBorderView.isHidden = true
   }
   
-  func applyTheme() {
+  func applyLocalize() {
+    
+  }
+  
+  func applyStyle() {
     backgroundColor = colorScheme.surfaceColor
     titleLabel.font = typographyScheme.body2
     titleLabel.textColor = colorScheme.onSurfaceColor
-    detailLabel.font = typographyScheme.body2
-    detailLabel.textColor = colorScheme.onSurfaceColor.withAlphaComponent(UIConstant.detailColorOpacity)
+    subtitleLabel.font = typographyScheme.body2
+    subtitleLabel.textColor = colorScheme.onSurfaceColor.withAlphaComponent(UIConstant.detailColorOpacity)
     trailingButton.titleLabel?.font = typographyScheme.button
     trailingButton.setTitleColor(colorScheme.onSurfaceColor.withAlphaComponent(UIConstant.titleColorOpacity), for: .normal)
     trailingButton.imageView?.tintColor = colorScheme.onSurfaceColor.withAlphaComponent(UIConstant.titleColorOpacity)
@@ -157,14 +151,18 @@ class CollectionReusableView: UICollectionReusableView {
     bottomBorderView.backgroundColor = UIConstant.borderColor
   }
   
-  func populate(_ displayed: ListReusableViewDisplayed) {
-    titleLabel.text = displayed.title
-    detailLabel.text = displayed.detail
-    trailingButton.setTitle(displayed.trailingButtonTitle, for: .normal)
-    trailingButton.setImage(displayed.trailingButtonImg, for: .normal)
+  func applyModel(_ model: ListReusableViewModel) {
+    titleLabel.text = model.title
+    subtitleLabel.text = model.detail
+    trailingButton.setTitle(model.trailingButtonTitle, for: .normal)
+    trailingButton.setImage(model.trailingButtonImg, for: .normal)
     titleLabel.isHidden = (titleLabel.text ?? "").isEmpty
-    detailLabel.isHidden = (detailLabel.text ?? "").isEmpty
+    subtitleLabel.isHidden = (subtitleLabel.text ?? "").isEmpty
     trailingButton.isHidden = (trailingButton.title(for: .normal) ?? "").isEmpty && trailingButton.image(for: .normal) == nil
+  }
+  
+  @objc func buttonTouchUpInside(_ sender: UIButton) {
+    delegate?.listReusableView(self, didAction: Action.trailingButton.rawValue)
   }
   
 //  func applyBottomStyle() {

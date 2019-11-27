@@ -5,7 +5,6 @@
 //  Created by NIdtaya Jamchoi on 16/11/2562 BE.
 //  Copyright © 2562 Silpakorn. All rights reserved.
 //
-
 import UIKit
 
 extension UIScrollView {
@@ -20,13 +19,15 @@ extension UIScrollView {
   }
   
   func setupScrollHorizontal() {
+    setupScrollDefault()
     alwaysBounceHorizontal = true
     showsHorizontalScrollIndicator = false
   }
   
   func setupScrollVertical() {
+    setupScrollDefault()
     isScrollEnabled = true
-    showsVerticalScrollIndicator = true
+    showsVerticalScrollIndicator = false
     bounces = true
     alwaysBounceVertical = true
   }

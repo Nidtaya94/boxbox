@@ -10,7 +10,8 @@ import UIKit
 import SwifterSwift
 import SnapKit
 
-extension ProfileVC
+extension ProfileVC:
+  ViewApplicable
 {
   
 }
@@ -19,36 +20,36 @@ class ProfileVC: UIViewController {
   
   var dummyText: String?
   
-  let dummyLabel: UILabel = {
-    let label = UILabel()
-    label.textAlignment = .center
+  var dummyLabel: UILabel = {
+    let label = UIFactory.dummyLabel
     return label
   }()
-  
-  override var prefersStatusBarHidden: Bool {
-    return false
-  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     view.addSubview(dummyLabel)
+    applyView()
+  }
+  
+  func applyAutoLayout() {
     dummyLabel.snp.makeConstraints {
       $0.right.equalTo(view.snp.rightMargin)
       $0.left.equalTo(view.snp.leftMargin)
       $0.center.equalToSuperview()
     }
-    dummyLabel.text = dummyText
-    applyProperties()
-    applyTheme()
   }
   
-  func applyProperties() {
+  func applyProperty() {
+    
+  }
+  
+  func applyLocalize() {
     navigationItem.title = String(describing: Self.self)
+    dummyLabel.text = dummyText
   }
   
-  func applyTheme() {
-//    view.backgroundColor = colorScheme.backgroundColor
-    setNeedsStatusBarAppearanceUpdate()
+  func applyStyle() {
+    view.backgroundColor = colorScheme.backgroundColor
   }
   
 }

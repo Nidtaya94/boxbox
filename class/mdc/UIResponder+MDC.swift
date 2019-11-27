@@ -10,9 +10,7 @@ import UIKit
 import MaterialComponents
 
 extension UIResponder {
-
   var typographyScheme: MDCTypographyScheming { return MDCTheme.theme.typographyScheme }
   var colorScheme: MDCColorScheming { return MDCTheme.theme.colorScheme }
   var containerScheme: MDCContainerScheming { return MDCTheme.theme }
-  
 }

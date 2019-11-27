@@ -9,7 +9,5 @@
 import UIKit
 
 struct MDCConstant {
-  
   static var inkAlpha: CGFloat = 0.16
-  
 }

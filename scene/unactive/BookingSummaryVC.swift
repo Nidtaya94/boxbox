@@ -1,8 +1,8 @@
 //
-//  ActivityVC.swift
+//  BookingSummaryVC.swift
 //  boxbox
 //
-//  Created by NIdtaya Jamchoi on 16/11/2562 BE.
+//  Created by NIdtaya Jamchoi on 21/11/2562 BE.
 //  Copyright © 2562 Silpakorn. All rights reserved.
 //
 
@@ -10,13 +10,13 @@ import UIKit
 import SwifterSwift
 import SnapKit
 
-extension ActivityVC:
+extension BookingSummaryVC:
   ViewApplicable
 {
   
 }
 
-class ActivityVC: UIViewController {
+class BookingSummaryVC: UIViewController {
   
   var dummyText: String?
   
@@ -53,4 +53,3 @@ class ActivityVC: UIViewController {
   }
   
 }
-

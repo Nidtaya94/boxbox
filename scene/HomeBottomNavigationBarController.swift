@@ -5,12 +5,13 @@
 //  Created by NIdtaya Jamchoi on 16/11/2562 BE.
 //  Copyright © 2562 Silpakorn. All rights reserved.
 //
-
 import UIKit
+
 import MaterialComponents.MaterialIcons
 import MaterialComponentsBeta.MaterialBottomNavigationBeta
 
 extension HomeBottomNavigationBarController:
+  ViewApplicable,
   UIGestureRecognizerDelegate,
   MDCBottomNavigationBarControllerDelegate
 {
@@ -27,23 +28,18 @@ class HomeBottomNavigationBarController: MDCBottomNavigationBarController {
      let vc = ActivityVC()
      return vc
    }()
-  var vc03: ProfileVC = {
-     let vc = ProfileVC()
-     return vc
-   }()
+//  var vc03: ProfileVC = {
+//     let vc = ProfileVC()
+//     return vc
+//   }()
+  var vc03: ListVC = {
+    let vc = ListVC()
+    return vc
+  }()
   
   var nc01: UINavigationController!
   var nc02: UINavigationController!
   var nc03: UINavigationController!
-  
-  var bottomNavigationBar: MDCBottomNavigationBar =  {
-    var bottomNavigationBar = MDCBottomNavigationBar()
-    return bottomNavigationBar
-  }()
-  
-  override var prefersStatusBarHidden: Bool {
-    return false
-  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -61,34 +57,29 @@ class HomeBottomNavigationBarController: MDCBottomNavigationBarController {
       nc02,
       nc03
     ]
-    applyProperties()
-    applyTheme()
+    applyView()
   }
   
-  override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
-    let size = bottomNavigationBar.sizeThatFits(view.bounds.size)
-    let x = CGFloat.zero
-    let y = view.bounds.height - size.height
-    let width = size.width
-    let height = size.height
-    let bottomNavigationBarFrame = CGRect(x: x, y: y, width: width, height: height)
-    bottomNavigationBar.frame = bottomNavigationBarFrame
+  func applyAutoLayout() {
+    
   }
   
-  func applyProperties() {
-    bottomNavigationBar.delegate = self
-    bottomNavigationBar.titleVisibility = .never
-    bottomNavigationBar.alignment = .justifiedAdjacentTitles
+  func applyProperty() {
+    navigationBar.delegate = self
+    navigationBar.titleVisibility = .never
+    navigationBar.alignment = .justifiedAdjacentTitles
+  }
+  
+  func applyLocalize() {
 //    vc01.dummyText = String(describing: ServiceVC.self)
     vc02.dummyText = String(describing: ActivityVC.self)
-    vc03.dummyText = String(describing: ProfileVC.self)
+//    vc03.dummyText = String(describing: ProfileVC.self)
   }
   
-  func applyTheme() {
+  func applyStyle() {
     view.backgroundColor = .white
   }
-  
+
   override func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, shouldSelect item: UITabBarItem) -> Bool {
     if selectedIndex == item.tag {
       if let nav = selectedViewController as? UINavigationController {
